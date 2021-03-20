@@ -1,0 +1,19 @@
+header img {
+    width: 100px;
+}
+
+header h1 {
+    font-size: 70px;
+    
+    
+}
+
+header {
+    background: rgb(0,0,0);
+background: linear-gradient(76deg, rgba(0,0,0,0) 0%, rgba(238,173,34,1) 100%);
+}
+
+#search-btn {
+    width: 48px;
+    margin-bottom: 10px;
+}
