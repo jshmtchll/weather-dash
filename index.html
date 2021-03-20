@@ -9,37 +9,45 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA==" crossorigin="anonymous" />
     <!--font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    <!--google font-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Fredoka+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css" />
     <link rel="shortcut icon" type="image/jpg" href="./assets/images/fav.svg"/>
 </head>
 <body>
     <header class="text-white p-2 text-center bg-dark">
-       <h1>Weather Dash<img src="./assets/images/fav.svg" alt=""></h1>
+       <h1>Weather Dash<img class="bounce-top" src="./assets/images/fav.svg" alt=""></h1>
     </header>
     <main>
-        <div class="row">
-            <div class="col-12 col-md-3 p-2 search-column">
+        <!--search form begin-->
+        <div class="row no-gutters custom-row">
+            <div class="col-12 col-md-3 p-2 search-column bg-dark">
                 <form class="border p-2" id="city-search">
                     <h4>Search Your City</h4>
                     <input autofocus="true" class="form-input" type="text" id="city-input" />
-                    <button type="submit" class="btn"><img id="search-btn" src="./assets/images/search.svg" alt=""></button>
+                    <button type="submit" class="btn"><img id="search-btn" src="./assets/images/search-w.png" alt=""></button>
                 </form>
-                <div><!--users past searches go here--></div>
+                <div id="search-history"><!--users past searches go here--></div>
             </div>
+            <!--current weather container begin-->
             <div class="col-md-9 col-12">
-                <div class="row border" id="current-day-forcast">
+                <div class="no-gutters row border" id="current-day-forcast">
                     <div class="col-12">
                         <h2 id="current-city"><!--users current searched city here--></h2>
                         <div class="list-group" id="current-weather"><!--current weather of seached city here--></div>
                     </div>
                 </div>
-                <div id="five-day-container" class="row border">
+                <!--5 day forecast container begin-->
+                <div id="five-day-container" class="no-gutters row border">
                     <h2 class="col-12" id="forecast"></h2>
                     <div id="five-day-forcast"><!--5 day forcast cards will append here--></div>
                 </div>
             </div>
-        </div>
+        </div>    
+        
     </main>
+    
    
    
    
