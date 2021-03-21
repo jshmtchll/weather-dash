@@ -43,11 +43,13 @@ let displayLocalWeather = function(data, city) {
     console.log(data);
     
     
-    let currentCity = `<h2> ${city} ${moment().format("MMM D, YYYY")}<img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png"/></h2>
-                        <div class="class-list">      
-                            <ul list-style-type = "none">
-                            <li>Temperature: ${Math.floor(data.main.temp)}</li>
-                            <ul>
+    let currentCity = `<h2 class="card-header text-center"> ${city} - ${moment().format("MMM D, YYYY")}<img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png"/></h2>
+                        <div class="card-body text-center">      
+                            <span class="card-body text-center"><img src="./assets/images/temp.png"/> <b>Temperature:</b> ${Math.floor(data.main.temp)}°F</span>
+                            <span class="card-body text-center"><img src="./assets/images/humid.png"/> <b>Humidity:</b> ${data.main.humidity}%</span>
+                            <br>
+                            <span class="card-body text-center"><img src="./assets/images/wind.png"/> <b>Wind Speed:</b> ${data.wind.speed}MPH</span>
+                            <span class="card-body text-center"><img src="./assets/images/uv.png"/> <b>UV Index:</b> ${data.wind.speed}MPH</span>
                         </div>`;
     currentWeatherEl.innerHTML = (currentCity);
 
