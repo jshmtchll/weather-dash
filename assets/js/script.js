@@ -12,6 +12,7 @@ let fiveDayTitle = document.getElementById("forecast-title");
 
 
 let searchedCities = [];
+console.log(searchedCities);
 
 
 let formSubmit = function(event) {
@@ -103,17 +104,17 @@ let displayUv = function(uvdata) {
 }
 
 let fiveDay = function(data) {
-    console.log(data);
+    //console.log(data);
     fiveDayForecastEl.textContent = "";
     
     title = `<h2 class="day-title">5-Day Forecast:</h2>`; //add 5-day title to the page
     fiveDayTitle.innerHTML = (title);
 
     let weather = data.daily;
-    console.log(weather);
+    
 
     for (var i=0; i < 5; i++) {
-        console.log(weather[i]);
+        //console.log(weather[i]);
 
         //https://momentjs.com/docs/#/displaying/unix-timestamp/
         let fiveDayCard =   `<div class="card bg-warning m-2">
