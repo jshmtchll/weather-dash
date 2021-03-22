@@ -15,10 +15,12 @@ let searchedCities = [];
 
 
 
+
 let formSubmit = function(event) {
     event.preventDefault()
 
     let city = userInputEl.value.trim().toUpperCase();
+    
     
     if (city) {
         console.log(city);
@@ -37,8 +39,12 @@ let searchHistory = function(searchedCity) {
     console.log(searchedCity);
 
     searchedCities.push(searchedCity);  //captures the users search into an array
+    let set = new Set(searchedCities);  //removes duplicates from the array
+    let citiesArr = [...set];         
+    console.log(citiesArr);
+    
     console.log(searchedCities);
-    savedSearch();
+    localStorage.setItem("city", JSON.stringify(citiesArr)); //sets searched cities into localstorage
 
     searchHistoryBtn = document.createElement("button");
     searchHistoryBtn.textContent = searchedCity;
@@ -58,10 +64,6 @@ let searchHistoryHandler = function(event) {
         //fiveDay(city); does not work
         getLocalWeather(city);
     }
-}
-
-let savedSearch = function() {
-    localStorage.setItem("city", JSON.stringify(searchedCities));
 }
 
 let getLocalWeather = function(city) {
@@ -169,6 +171,33 @@ let fiveDay = function(data) {
 
 formInputEl.addEventListener("submit", formSubmit);
 searchHistoryEl.addEventListener("click", searchHistoryHandler);
+
+document.addEventListener("DOMContentLoaded", function(){ //https://www.sitepoint.com/jquery-document-ready-plain-javascript/
+    let searchArr = JSON.parse(localStorage.getItem("city"));
+    console.log(searchArr);
+    if (searchArr !== null) {
+        let lastSearch = searchArr.length - 1;
+        let lastSearchCity = searchArr[lastSearch]
+        getLocalWeather(lastSearchCity);
+    }
+
+    for (let i=0; i < searchArr.length; i++) {
+        searchHistoryBtn = document.createElement("button");
+        searchHistoryBtn.textContent = searchArr[i];
+        searchHistoryBtn.classList = "list-group-item list-group-item-action history-btn";
+        searchHistoryBtn.setAttribute("type", "submit");
+       
+
+        searchHistoryEl.appendChild(searchHistoryBtn);
+
+        searchHistoryBtn.onclick = function() {
+            getLocalWeather(searchArr[i]);
+        }
+    }
+    
+    
+
+});
 
 
 
