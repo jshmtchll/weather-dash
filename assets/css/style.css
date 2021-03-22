@@ -29,6 +29,17 @@ background: linear-gradient(70deg, rgba(255,255,255,0) 27%, rgba(252,195,0,0.997
 
 }
 
+.history-btn {
+    margin-top: 13px;
+    font-weight: bold;
+    background-color: white;
+    transition: 0.5s;
+}
+
+.history-btn:hover {
+    background-color: #FFC107;
+}
+
 .list-group {
     text-align: center !important;
 }

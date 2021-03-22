@@ -12,7 +12,7 @@ let fiveDayTitle = document.getElementById("forecast-title");
 
 
 let searchedCities = [];
-console.log(searchedCities);
+
 
 
 let formSubmit = function(event) {
@@ -22,15 +22,46 @@ let formSubmit = function(event) {
     
     if (city) {
         console.log(city);
+        searchHistory(city);
         getLocalWeather(city);
         fiveDay(city)
         userInputEl.value = "";
-        userInputEl.textContent = "";
     }
     else{
         alert("Please enter a correct city");
     }
     
+}
+
+let searchHistory = function(searchedCity) {
+    console.log(searchedCity);
+
+    searchedCities.push(searchedCity);  //captures the users search into an array
+    console.log(searchedCities);
+    savedSearch();
+
+    searchHistoryBtn = document.createElement("button");
+    searchHistoryBtn.textContent = searchedCity;
+    searchHistoryBtn.classList = "list-group-item list-group-item-action history-btn";
+    searchHistoryBtn.setAttribute("type", "submit");
+    searchHistoryBtn.setAttribute("data-history", searchedCity)
+
+    searchHistoryEl.appendChild(searchHistoryBtn);
+
+
+}
+
+let searchHistoryHandler = function(event) {
+    let city = event.target.getAttribute("data-history")
+    console.log(city);
+    if (city) {
+        //fiveDay(city); does not work
+        getLocalWeather(city);
+    }
+}
+
+let savedSearch = function() {
+    localStorage.setItem("city", JSON.stringify(searchedCities));
 }
 
 let getLocalWeather = function(city) {
@@ -104,16 +135,17 @@ let displayUv = function(uvdata) {
 }
 
 let fiveDay = function(data) {
-    //console.log(data);
+    console.log(data);
     fiveDayForecastEl.textContent = "";
+    
     
     title = `<h2 class="day-title">5-Day Forecast:</h2>`; //add 5-day title to the page
     fiveDayTitle.innerHTML = (title);
 
     let weather = data.daily;
     
-
-    for (var i=0; i < 5; i++) {
+    
+    for (var i = 1; i < 6; i++) {
         //console.log(weather[i]);
 
         //https://momentjs.com/docs/#/displaying/unix-timestamp/
@@ -134,7 +166,9 @@ let fiveDay = function(data) {
     }
 }
 
+
 formInputEl.addEventListener("submit", formSubmit);
+searchHistoryEl.addEventListener("click", searchHistoryHandler);
 
 
 
