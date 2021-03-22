@@ -1,12 +1,14 @@
 let api = "c9dfb03ebccab3d1072ae4c678d37794";
-
-let fiveDayForecastEl = document.getElementById("five-day-forcast");
+//current weather container elements
 let currentWeatherEl = document.getElementById("current-weather");
 let currentDayTitle = document.getElementById("current-city");
-let searchHistoryEl = document.getElementById("search-history");
+//seaarch field elements
 let userInputEl = document.getElementById("city-input");
 let formInputEl = document.getElementById("city-search");
-
+let searchHistoryEl = document.getElementById("search-history");
+//5 day forcast container elements
+let fiveDayForecastEl = document.getElementById("five-day-forcast");
+let fiveDayTitle = document.getElementById("forecast-title");
 
 
 let searchedCities = [];
@@ -20,6 +22,9 @@ let formSubmit = function(event) {
     if (city) {
         console.log(city);
         getLocalWeather(city);
+        fiveDay(city)
+        userInputEl.value = "";
+        userInputEl.textContent = "";
     }
     else{
         alert("Please enter a correct city");
@@ -33,7 +38,7 @@ let getLocalWeather = function(city) {
 
     fetch(url).then(function(res) {
         res.json().then(function(data) {
-            //console.log(data);
+            console.log(data);
             displayLocalWeather(data, city) //sends data from fetch and city name to display function
         });
     });
@@ -42,10 +47,11 @@ let getLocalWeather = function(city) {
 
 let displayLocalWeather = function(data, city) {
    // currentWeatherEl.textContent = ""; //clears the current div for new content
-    console.log(data);
+    //console.log(data);
     
     
-    let currentCity = `<h2 class="card-header text-center"> ${city} - ${moment().format("MMM D, YYYY")}<img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png"/></h2>
+    let currentCity = `<span class="card-header text-center current-top"><h2> ${city} - ${moment().format("MMM D, YYYY")}<img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png"/></h2></span>
+                        <h5><b>Current conditions:</b>  ${data.weather[0].description}</h5>
                         <div class="card-body text-center">      
                             <span class="card-body text-center"><img src="./assets/images/temp.png"/> <b>Temperature:</b> ${Math.floor(data.main.temp)}°F</span>
                             <span class="card-body text-center"><img src="./assets/images/humid.png"/> <b>Humidity:</b> ${data.main.humidity}%</span>
@@ -70,8 +76,9 @@ let uvIndex = function(latitude, longitude) {
 
     fetch(url).then(function(res) {
         res.json().then(function(data) {
-            console.log(data)
-            displayUv(data) //sends to displayuv function to print on page
+            //console.log(data)
+            displayUv(data); //sends to displayuv function to print on page
+            fiveDay(data); //send data to the 5day function
         });
     });
 }
@@ -93,6 +100,37 @@ let displayUv = function(uvdata) {
     document.getElementById("test").style.display = ""
 
     
+}
+
+let fiveDay = function(data) {
+    console.log(data);
+    fiveDayForecastEl.textContent = "";
+    
+    title = `<h2 class="day-title">5-Day Forecast:</h2>`; //add 5-day title to the page
+    fiveDayTitle.innerHTML = (title);
+
+    let weather = data.daily;
+    console.log(weather);
+
+    for (var i=0; i < 5; i++) {
+        console.log(weather[i]);
+
+        //https://momentjs.com/docs/#/displaying/unix-timestamp/
+        let fiveDayCard =   `<div class="card bg-warning m-2">
+                                <h5 class="text-shadow card-header text-center">${moment.unix(weather[i].dt).format("MMMM Do")}</h5> 
+                                <img class="card-body text-center" src="https://openweathermap.org/img/wn/${weather[i].weather[0].icon}@2x.png"/>
+                                <span class="text-shadow card-body text-center"><b>Low: ${Math.floor(weather[i].temp.min)}</b></span>
+                                
+                                <span class="text-shadow card-body text-center"><b>High: ${Math.floor(weather[i].temp.max)}</b></span>
+                                
+                                <span class="text-shadow card-body text-center"><b>Humidity: ${weather[i].humidity}%</b></span>
+                                
+                                <span class="text-shadow card-body text-center"><b>Wind: ${Math.floor(weather[i].wind_speed)}MPH</b></span>
+                            </div>`;
+
+        
+        fiveDayForecastEl.innerHTML += (fiveDayCard);
+    }
 }
 
 formInputEl.addEventListener("submit", formSubmit);

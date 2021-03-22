@@ -25,6 +25,7 @@ background: linear-gradient(70deg, rgba(255,255,255,0) 27%, rgba(252,195,0,0.997
 
 .search-column h4 {
     color: #DCAD0C;
+    
 
 }
 
@@ -43,9 +44,42 @@ background: linear-gradient(70deg, rgba(255,255,255,0) 27%, rgba(252,195,0,0.997
     height: 100vh !important;
 }
 
+.current-top {
+    background-color: #343A40 !important;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+    background: rgb(0,0,0);
+/*background: linear-gradient(76deg, rgba(0,0,0,0) 0%, rgba(238,173,34,1) 100%);
+background: rgb(255,255,255);
+background: linear-gradient(70deg, rgba(255,255,255,0) 7%, rgba(252,195,0,0.9976365546218487) 100%);*/
+    
+}
+
+.day-title {
+    text-align: center;
+    border-top: 20px solid #343A40;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
+    text-decoration: underline;
+    font-weight: bold;
+    
+        
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 4px #000000;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
 
 .btn {
     padding: 0px !important;
+}
+
+.five-day {
+    margin: 0 auto;
 }
 
 
