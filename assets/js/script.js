@@ -23,11 +23,11 @@ let formSubmit = function(event) {
     
     
     if (city) {
+        userInputEl.value = "";
         console.log(city);
-        searchHistory(city);
         getLocalWeather(city);
         fiveDay(city)
-        userInputEl.value = "";
+        
     }
     else{
         alert("Please enter a correct city");
@@ -71,10 +71,14 @@ let getLocalWeather = function(city) {
     let url = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + api;
 
     fetch(url).then(function(res) {
-        res.json().then(function(data) {
-            console.log(data);
-            displayLocalWeather(data, city) //sends data from fetch and city name to display function
-        });
+        if (res.ok) {
+            res.json().then(function(data) {
+                displayLocalWeather(data, city);
+                searchHistory(city);
+            });
+        } else {
+            alert("Not a city. Please search again.");
+        }
     });
 };
 
@@ -181,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function(){ //https://www.sitepoin
         getLocalWeather(lastSearchCity);
     }
 
-    for (let i=0; i < searchArr.length; i++) {
+    for (let i=0; i < searchArr.length - 1; i++) {
         searchHistoryBtn = document.createElement("button");
         searchHistoryBtn.textContent = searchArr[i];
         searchHistoryBtn.classList = "list-group-item list-group-item-action history-btn";
