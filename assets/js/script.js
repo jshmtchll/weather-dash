@@ -25,6 +25,7 @@ let formSubmit = function(event) {
     if (city) {
         userInputEl.value = "";
         console.log(city);
+        //searchHistory(city);
         getLocalWeather(city);
         fiveDay(city)
         
@@ -38,23 +39,33 @@ let formSubmit = function(event) {
 let searchHistory = function(searchedCity) {
     console.log(searchedCity);
 
-    searchedCities.push(searchedCity);  //captures the users search into an array
-    let set = new Set(searchedCities);  //removes duplicates from the array
-    let citiesArr = [...set];         
-    console.log(citiesArr);
+    if (!searchedCities.includes(searchedCity)) { //if users search isn't already in array
+        
+        searchedCities.push(searchedCity); //push to array
+        
+        searchHistoryBtn = document.createElement("button");
+        searchHistoryBtn.textContent = searchedCity;
+        searchHistoryBtn.classList = "list-group-item list-group-item-action history-btn";
+        searchHistoryBtn.setAttribute("type", "submit");
+        searchHistoryBtn.setAttribute("data-history", searchedCity)
+
+        searchHistoryEl.appendChild(searchHistoryBtn);
+
+        let set = new Set(searchedCities);  //removes duplicates from the array
+        let citiesArr = [...set];         
+        console.log(citiesArr);
+        
+        console.log(searchedCities);
+        localStorage.setItem("city", JSON.stringify(searchedCities)); //sets searched cities into localstorage
+    };
     
-    console.log(searchedCities);
-    localStorage.setItem("city", JSON.stringify(citiesArr)); //sets searched cities into localstorage
+    // searchHistoryBtn = document.createElement("button");
+    // searchHistoryBtn.textContent = searchedCity;
+    // searchHistoryBtn.classList = "list-group-item list-group-item-action history-btn";
+    // searchHistoryBtn.setAttribute("type", "submit");
+    // searchHistoryBtn.setAttribute("data-history", searchedCity)
 
-    searchHistoryBtn = document.createElement("button");
-    searchHistoryBtn.textContent = searchedCity;
-    searchHistoryBtn.classList = "list-group-item list-group-item-action history-btn";
-    searchHistoryBtn.setAttribute("type", "submit");
-    searchHistoryBtn.setAttribute("data-history", searchedCity)
-
-    searchHistoryEl.appendChild(searchHistoryBtn);
-
-
+    // searchHistoryEl.appendChild(searchHistoryBtn);
 }
 
 let searchHistoryHandler = function(event) {
