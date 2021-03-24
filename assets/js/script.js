@@ -10,11 +10,7 @@ let searchHistoryEl = document.getElementById("search-history");
 let fiveDayForecastEl = document.getElementById("five-day-forcast");
 let fiveDayTitle = document.getElementById("forecast-title");
 
-
-let searchedCities = [];
-
-
-
+let searchedCities = JSON.parse(localStorage.getItem("city")) || []; 
 
 let formSubmit = function(event) {
     event.preventDefault()
@@ -38,7 +34,7 @@ let formSubmit = function(event) {
 
 let searchHistory = function(searchedCity) {
     console.log(searchedCity);
-
+    console.log(searchedCities);
     if (!searchedCities.includes(searchedCity)) { //if users search isn't already in array
         
         searchedCities.push(searchedCity); //push to array
@@ -53,26 +49,19 @@ let searchHistory = function(searchedCity) {
 
         let set = new Set(searchedCities);  //removes duplicates from the array
         let citiesArr = [...set];         
-        console.log(citiesArr);
+        //console.log(citiesArr);
         
-        console.log(searchedCities);
-        localStorage.setItem("city", JSON.stringify(searchedCities)); //sets searched cities into localstorage
+        //console.log(searchedCities);
+        localStorage.setItem("city", JSON.stringify(citiesArr)); //sets searched cities into localstorage
     };
     
-    // searchHistoryBtn = document.createElement("button");
-    // searchHistoryBtn.textContent = searchedCity;
-    // searchHistoryBtn.classList = "list-group-item list-group-item-action history-btn";
-    // searchHistoryBtn.setAttribute("type", "submit");
-    // searchHistoryBtn.setAttribute("data-history", searchedCity)
-
-    // searchHistoryEl.appendChild(searchHistoryBtn);
 }
 
 let searchHistoryHandler = function(event) {
     let city = event.target.getAttribute("data-history")
     console.log(city);
     if (city) {
-        //fiveDay(city); does not work
+        //fiveDay(city); //does not work
         getLocalWeather(city);
     }
 }
@@ -92,7 +81,6 @@ let getLocalWeather = function(city) {
         }
     });
 };
-
 
 let displayLocalWeather = function(data, city) {
    // currentWeatherEl.textContent = ""; //clears the current div for new content
@@ -115,7 +103,6 @@ let displayLocalWeather = function(data, city) {
     let latitude = data.coord.lat; //get lat/lon from the single day api call and pass it to the fetch for the uvi
     uvIndex(latitude, longitude);
 }
-
 
 let uvIndex = function(latitude, longitude) {
     console.log(latitude);
@@ -147,8 +134,6 @@ let displayUv = function(uvdata) {
     
     uvEl.innerHTML = (uvdata.current.uvi);
     document.getElementById("test").style.display = ""
-
-    
 }
 
 let fiveDay = function(data) {
@@ -183,7 +168,6 @@ let fiveDay = function(data) {
     }
 }
 
-
 formInputEl.addEventListener("submit", formSubmit);
 searchHistoryEl.addEventListener("click", searchHistoryHandler);
 
@@ -201,17 +185,15 @@ document.addEventListener("DOMContentLoaded", function(){ //https://www.sitepoin
         searchHistoryBtn.textContent = searchArr[i];
         searchHistoryBtn.classList = "list-group-item list-group-item-action history-btn";
         searchHistoryBtn.setAttribute("type", "submit");
+        searchHistoryBtn.setAttribute("data-history", searchArr[i]);
        
-
         searchHistoryEl.appendChild(searchHistoryBtn);
 
-        searchHistoryBtn.onclick = function() {
-            getLocalWeather(searchArr[i]);
-        }
+        // searchHistoryBtn.onclick = function() {
+        //     getLocalWeather(searchArr[i]);
+        // }
     }
     
-    
-
 });
 
 
