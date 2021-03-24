@@ -160,7 +160,7 @@ let fiveDay = function(data) {
                                 
                                 <span class="text-shadow card-body text-center"><b>Humidity: ${weather[i].humidity}%</b></span>
                                 
-                                <span class="text-shadow card-body text-center"><b>Wind: ${Math.floor(weather[i].wind_speed)}MPH</b></span>
+                                <!--<span class="text-shadow card-body text-center"><b>Wind: ${Math.floor(weather[i].wind_speed)}MPH</b></span>-->
                             </div>`;
 
         
